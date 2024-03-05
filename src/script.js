@@ -1,5 +1,5 @@
 // Function to generate unique email
-function generateUniqueEmail() {
+export function generateUniqueEmail() {
     // Get today's date
     const today = new Date();
     const day = today.getDate();
@@ -25,12 +25,3 @@ function generateUniqueEmail() {
     
     return uniqueEmail;
 }
-
-function displayGeneratedEmail() {
-    const emailOutputDiv = document.getElementById("emailOutput");
-    const generatedEmail = generateUniqueEmail();
-    emailOutputDiv.textContent += generatedEmail;
-}
-
-// Call the function to display the generated email when the page loads
-window.onload = displayGeneratedEmail;
