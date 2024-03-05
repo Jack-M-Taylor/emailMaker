@@ -1,5 +1,5 @@
-// Function to generate unique email
-export function generateUniqueEmail() {
+// Function to generate unique email with custom prefix
+export function generateUniqueEmail(prefix) {
     // Get today's date
     const today = new Date();
     const day = today.getDate();
@@ -10,8 +10,8 @@ export function generateUniqueEmail() {
     const paddedDay = String(day).padStart(2, '0');
     const paddedMonth = String(month).padStart(2, '0');
 
-    // Generate the email format
-    const emailPrefix = `jack.taylor+${paddedDay}${paddedMonth}${year}`;
+    // Generate the email format using the custom prefix
+    const emailPrefix = `${prefix}${paddedDay}${paddedMonth}${year}`;
     
     // Get the counter from local storage or initialize to 0
     let counter = localStorage.getItem('emailCounter');
