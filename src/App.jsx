@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { generateUniqueEmail } from "./script"; // Importing the generateUniqueEmail function from script.js
+import {Box, Typography, Stack, Button, Snackbar} from '@mui/material'
+import { MuiSnackbar } from './components/MuiSnackbar';
+
 // import { Container } from "@mui/material";
 // import EmailIcon from "@mui/icons-material/Email";
 
@@ -11,6 +14,16 @@ export default function App() {
   const handleGenerateEmail = () => {
     const generatedEmail = generateUniqueEmail(prefix); // Pass the prefix to the generateUniqueEmail function
     setEmail(generatedEmail);
+
+    // Copy the generated email to the clipboard
+    navigator.clipboard
+      .writeText(generatedEmail)
+      .then(() => {
+        console.log("Email copied to clipboard:", generatedEmail);
+      })
+      .catch((error) => {
+        console.error("Failed to copy email to clipboard:", error);
+      });
   };
 
   // Function to handle prefix change
@@ -30,41 +43,27 @@ export default function App() {
   }, [prefix]); // Dependency array includes prefix state
 
   return (
-    <div>
-      <h1>Generated Email</h1>
-      <input
-        type="text"
-        value={prefix}
-        onChange={handlePrefixChange}
-        placeholder="Enter email prefix"
-      />
-      <p>{email}</p>
-      <button onClick={handleGenerateEmail}>Generate Email</button>
-      <button onClick={handleResetCounter}>Reset Counter</button>{" "}
-      {/* Button to reset the counter */}
-    </div>
+    <Box sx={{ width: "100%", maxWidth: 500 }}>
+      <div>
+        <Typography variant="h2" gutterBottom>
+          Generate Email:
+        </Typography>
+        <input
+          type="text"
+          value={prefix}
+          onChange={handlePrefixChange}
+          placeholder="Enter email prefix"
+        />
+        <p>{email}</p>
+        <Button variant="outlined" onClick={handleGenerateEmail}>
+          Generate Email
+        </Button>
+        <Button variant="outlined" onClick={handleResetCounter}>
+          Reset Counter
+        </Button>{" "}
+        {/* Button to reset the counter */}
+      </div>
+    </Box>
   );
 }
-// const App = () => {
-//   return (
-//     <>
-//       <CssBaseline />
-//       <AppBar position="relative">
-//         <Toolbar>
-//           <EmailIcon />
-//           <Typography variant="h6"> Generated Email:</Typography>
-//         </Toolbar>
-//       </AppBar>
-//       <script src="script.js"></script>
-//       <main>
-//         <div>
-//           <Container>
-//             <div id="emailOutput">Generated Email:</div>
-//           </Container>
-//         </div>
-//       </main>
-//     </>
-//   );
-// };
 
-// export default App;
