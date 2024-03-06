@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { generateUniqueEmail } from "./script"; // Importing the generateUniqueEmail function from script.js
-import {Box, Typography, Stack, Button, Snackbar} from '@mui/material'
-import { MuiSnackbar } from './components/MuiSnackbar';
+import {
+  Box,
+  Typography,
+  Stack,
+  Button,
+  Snackbar,
+  CssBaseline,
+  AppBar,
+  Container,
+  TextField,
+  Grid,
+} from "@mui/material";
+import { MuiSnackbar } from "./components/MuiSnackbar";
 
 // import { Container } from "@mui/material";
 // import EmailIcon from "@mui/icons-material/Email";
 
 export default function App() {
-  const [prefix, setPrefix] = useState("jack.taylor+"); // State to store the email prefix
+  const [prefix, setPrefix] = useState("+"); // State to store the email prefix
   const [email, setEmail] = useState("");
 
   // Function to handle generating and updating email
@@ -43,27 +54,57 @@ export default function App() {
   }, [prefix]); // Dependency array includes prefix state
 
   return (
-    <Box sx={{ width: "100%", maxWidth: 500 }}>
-      <div>
-        <Typography variant="h2" gutterBottom>
-          Generate Email:
-        </Typography>
-        <input
-          type="text"
-          value={prefix}
-          onChange={handlePrefixChange}
-          placeholder="Enter email prefix"
-        />
-        <p>{email}</p>
-        <Button variant="outlined" onClick={handleGenerateEmail}>
-          Generate Email
-        </Button>
-        <Button variant="outlined" onClick={handleResetCounter}>
-          Reset Counter
-        </Button>{" "}
-        {/* Button to reset the counter */}
-      </div>
-    </Box>
+    <>
+      <CssBaseline />
+      <main>
+        <div>
+          <Container maxWidth="sm">
+            <Typography
+              variant="h3"
+              align="center"
+              color="textPrimary"
+              gutterBottom
+            >
+              Generate Email:
+            </Typography>
+            <Typography variant="h5" align="center" color="GrayText" paragraph>
+              Enter your email prefix to generate a new variant.
+            </Typography>
+            <div>
+              <Grid container spacing={2} justify="center">
+                <Grid item>
+                  <TextField
+                    id="outlined-basic"
+                    label="FirstName.LastName"
+                    variant="outlined"
+                    type="text"
+                    onChange={handlePrefixChange}
+                    placeholder="Enter email prefix"
+                  />
+                  <p>{email}</p>
+                  <Stack spacing={1} direction="row">
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      colour="primary"
+                      onClick={handleGenerateEmail}
+                    >
+                      Generate Email
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button variant="outlined" onClick={handleResetCounter}>
+                      Reset Counter
+                    </Button>{" "}
+                    {/* Button to reset the counter */}
+                  </Grid>
+                  </Stack>
+                </Grid>
+              </Grid>
+            </div>
+          </Container>
+        </div>
+      </main>
+    </>
   );
 }
-
